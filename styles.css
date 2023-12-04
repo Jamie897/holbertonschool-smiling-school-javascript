@@ -1,419 +1,345 @@
-/* Variables
-       ============================= */
-       :root {
-        --color-primary: #C271FF;
-        --color-black:  #090909;
-        --color-white: #ffffff;
-        --color-dark: purple;
-        --color-darker:#071629;
-
-        --font-family-base: "Source Sans Pro";
-        --font-family-hbtn: "holberton_school-icon";
-
-        --font-size-x-small: 14px;
-        --font-size-small: 16px;
-        --font-size-medium: 18px;
-        --font-size-large: 32px;
-        --font-size-x-large: 46px;
-        --font-size-h1: 7.5rem;
-
-        --font-weight-bold: 900;
-    }
-
-/* 
-    Base
-      ============================ */
-        body {
-            font-family: var(--font-family-base);
-        }
-
-        .btn-primary {
-            background-color: var(--color-primary);
-            border: var(--color-primary);
-            border-radius: 1.5rem;
-            font-size: var(--font-size-x-small);
-        }
-
-        .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-            background-color: var(--color-dark);
-            opacity: 0.9
-        }
-
-        .nav-item .nav-link:hover {
-            color: var(--color-primary) !important;
-        }
-
-        #loading {
-            border: 10px solid #f3f3f3;
-            border-top: 10px solid #C271FF;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin: auto;
-        }
-
-        .loaderContainer {
-            height: 280px;
-        }
-
-/* Header / Hero Section
-      ============================= */
-      header {
-          background-image: url(./images/pic_1.jpg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
-      }
-
-      .display-1 {
-          font-size: var(--font-size-h1);
-      }
-
-      .profile li a ~ p {
-          font-size: var(--font-size-medium);
-      }
-
-      a.nav-link {
-          font-size: var(--font-size-x-small);
-      }
-
-      .highlight {
-          color: var(--color-primary);
-          padding-top: 5rem;
-      }
-
-      .highlight small {
-          color: var(--color-white);
-      }
-
-      .navbar-icon, .font-icon {
-          font-family: holberton_school-icon;
-          font-size: var(--font-size-large);
-      }
-
-      /* Pricing Header ====================== */
-      .header-pricing {
-          background-image: url(./images/pic_2.jpg);
-      }
-
-      .text-x-sm {
-          color: lightgray;
-          font-size: 12px;
-      }
-      
-      .header-pricing .font-icon {
-          color: #82D24F;
-      }
-
-      .size-xs {
-          font-size: var(--font-size-x-small);
-      }
-
-      .border-bottom {
-          border-bottom: .5px solid #979797 !important;
-      }
-
-      /* Courses Header ====================== */
-      .header-courses {
-          background-image: url(./images/pic_3.jpg);
-      }
-
-      .highlight-3 {
-          font-family: Coiny;
-          max-width: 43rem;
-      }
-
-      .highlight-3 h1 small{
-          color: var(--color-primary);
-      }
-
-/* Section Quotes
-      ============================= */
-    .bg-primary {
-        background-color: var(--color-primary) !important;
-    }
-
-    .carousel-caption {
-        position: unset;
-        max-width: 730px;
-        margin-right: 6rem;
-        margin-left: 3rem;
-    }
-
-    .carousel-control-prev-icon {
-        background-image: url(./images/arrow_white_left.png);
-    }
-
-    .carousel-control-next-icon {
-        background-image: url(./images/arrow_white_right.png);
-    }
-
-    .carousel-control-prev-icon, .carousel-control-next-icon {
-        width: 2rem;
-        height: 4rem;   
-    }
-
-    .item-inner {
-        padding-left: 5rem;
-    }
-
-   
-
-
-/* Video Section
-      ============================== */
-     .section-video {
-         font-size: var(--font-size-x-small);
-     }
-
-     .highlight2 small {
-          color: var(--color-primary);
-          padding-top: 5rem;
-      }
-
-      .card-text {
-          max-width: 242px;
-          color: #838a94;
-      }
-
-      .profile-video {
-          color: var(--color-primary);
-      }
-
-      .section-video .carousel-control-prev-icon {
-          background-image: url(./images/arrow_black_left.png);
-          margin-left: -4rem !important;
-      }
-
-      .section-video .carousel-control-next-icon {
-          background-image: url(./images/arrow_black_right.png);
-          margin-right: -4rem !important;
-      }
-
-      .card {
-          max-width: 255px;
-      }
-
-      .play-icon {
-          margin: 2.8rem 5.5rem;
-      }
-
-      .play-icon2 {
-          margin: 2rem 5rem;
-      }
-
-      /* Dynamic carousel*/
-      #innerVideos .loading, #latestInner .loading {
-          background-color: var(--color-primary);
-      }
-
-      @media (max-width: 576px) {
-        #innerVideos.carousel-inner .carousel-item > div,
-        #latestInner.carousel-inner .carousel-item > div 
-        {
-            display: none !important;
-        }
-        #innerVideos.carousel-inner .carousel-item > div:nth-child(1),
-        #latestInner.carousel-inner .carousel-item > div:nth-child(1)
-        {
-            display: block !important;
-        }
-        .play-icon {
-            margin: -6.2rem 5.5rem !important;
-        }
-      }
-
-      #innerVideos.carousel-inner .carousel-item.active,
-      #innerVideos.carousel-inner .carousel-item-next,
-      #innerVideos.carousel-inner .carousel-item-prev,
-      #latestInner.carousel-inner .carousel-item.active,
-      #latestInner.carousel-inner .carousel-item-next,
-      #latestInner.carousel-inner .carousel-item-prev
-      {
-          display: flex;
-      }
-
-      @media (min-width: 576px) {
-        #innerVideos.carousel-inner .carousel-item-right.active,
-        #innerVideos.carousel-inner .carousel-item-next,
-        #latestInner.carousel-inner .carousel-item-right.active,
-        #latestInner.carousel-inner .carousel-item-next
-        {
-            transform: translate(20.000%);
-        }
-
-        #innerVideos.carousel-inner .carousel-item-left.active, 
-        #innerVideos.carousel-inner .carousel-item-prev,
-        #latestInner.carousel-inner .carousel-item-left.active, 
-        #latestInner.carousel-inner .carousel-item-prev 
-        {
-            transform: translateX(-20.000%);
-        }
-     }
-
-      #innerVideos.carousel-inner .carousel-item-right,
-      #innerVideos.carousel-inner .carousel-item-left,
-      #latestInner.carousel-inner .carousel-item-right,
-      #latestInner.carousel-inner .carousel-item-left
-      { 
-          transform: translateX(0);
-          background-color: var(--color-white);
-      }
-
-    
-/* Section Membership 
-      ============================== */
-      .section-membership {
-          background-color: var(--color-darker);
-      }
-
-      .section-membership .list-group-item {
-          max-width: 257px;
-          max-height: 153px;
-      }
-
-/* FAQ Section
-      =============================== */
-      .faq {
-          max-width: 350px;
-      }
-
-      .section-faq p {
-          color: gray !important;
-      } 
-
-
-/* Filters Section
-      ================================ */
-      .section-filter {
-        background-color: var(--color-primary);
-      }
-
-     .section-filter input, .bg-span {
-        background-color: #d195ff;
-        border-color: white !important;
-     } 
-
-    .font-icon-filter {
-        font-family: var(--font-family-hbtn);
-    } 
-     .input-title {
-        font-size: var(--font-size-x-small);
-     }
-
-     .form-control::placeholder {
-        color: white;
-     }
-
-     .dropdown-item:hover {
-        color: var(--color-primary);
-     }
-
-     .num-vid {
-        color: gray;
-     }
-
-     #courses {
-         margin-left: 5rem !important;
-     }
-
-/* Footer 
-      =============================== */
-      footer {
-          background-color: var(--color-darker);
-      }
-
-      svg {
-          fill: var(--color-white);
-      }
-
-      .f-smile {
-          color: #838a94;
-          font-size: var(--font-size-x-small);
-      }
-
-
-/* Medium Screens
-      ============================== */
-      @media screen and (max-width: 768px) {
-        .display-1 {
-            font-size: 6rem;
-        }
-        .row {
-            padding-left: 0 !important;
-            padding-right: 0!important;
-        }
-        .item-inner {
-            padding-left: 0;
-        }
-        .num-vid {
-            margin-left: 0 !important;
-        }
-        #courses {
-            margin-left: 3.5rem !important;
-        }
-        .play-icon {
-            margin: 1rem 3rem;
-        }
-      }
-
-/* Small Screens
-      =============================== */
-      @media screen and (max-width: 576px) {
-        .display-1 {
-            font-size: 3rem;
-        }
-        .row {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-            margin: 0;
-        }
-       
-        header {
-            background-image: url(./images/pic_1.jpg);
-            background-repeat: no-repeat;
-            background-position: 31% 0%;
-        }
-
-        #navSmall {
-            display: none;
-        }
-
-        button.collapsed ~ #navSmall {
-            display: flex !important;
-        }
-
-        .carousel-item {
-            padding: 0;
-        }
-
-        .item-inner {
-            padding-left: 0;
-        }
-
-        .carousel-caption {
-            margin-left: 3.5rem;
-            margin-right: 2.8rem;
-        }
-        .section-video .carousel-control-prev-icon {
-            margin-left: 0 !important;
-        }
-        
-        .section-video .carousel-control-next-icon {
-            margin-right: 0 !important;
-        }
-        
-        .faq {
-          max-width: unset;
-        }
-
-        #course {
-            max-width: 100%;
-        }
-        #courses {
-            margin: 0 !important;
-        }
-        .play-icon2 {
-            margin: 4.5rem 8.5rem;
-        }
-    }
+/* Reset / Normalize
+  ============================= */
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+
+@font-face {
+  font-family: "SSP-Bold";
+  src: url('./source-sans-pro/SourceSansPro-Bold.otf');
+}
+
+@font-face {
+  font-family: "SSP-Reg";
+  src: url('./source-sans-pro/SourceSansPro-Regular.otf');
+}
+
+@font-face {
+  font-family: "SSP-SemiBold";
+  src: url("./source-sans-pro/SourceSansPro-Semibold.otf");
+}
+
+@font-face {
+  font-family: "SSP-Light";
+  src: url("./source-sans-pro/SourceSansPro-Light.otf");
+}
+
+/* Base */
+
+:root {
+  --link-color-active: #FF6565;
+  --font-ssp-bold: 'SSP-Bold';
+  --font-ssp-reg: 'SSP-Reg';
+  --font-ssp-semibold: 'SSP-SemiBold';
+  --font-ssp-light: 'SSP-Light';
+  --purp: #C271FF;
+  --bg-dark: #071629;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+button:hover {
+opacity: .9;
+}
+
+.table td {
+border-top: 1px solid rgba(243, 243, 243, 0.3);
+}
+
+td {
+padding: 5%;
+}
+
+.has-border {
+border-top: 1px solid rgba(243, 243, 243, 0.3);
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+color: rgba(255, 255, 255, 1);
+font-family: var(--font-ssp-light);
+}
+
+@media (max-width: 685px) {
+.card {
+  width: 100%;
+}
+}
+
+@media (min-width: 685px) and (max-width: 1440px) {
+.card {
+  width: 16rem;
+}
+}
+
+@media (max-width: 768px) {
+.smile-container {
+  flex-wrap: wrap;
+}
+
+.smile {
+  width: 40%;
+}
+}
+
+@media (max-width: 576px) {
+header.container {
+  justify-content: center !important;
+}
+
+.logo {
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  padding-left: 5%;
+}
+
+.logo a{
+  margin: auto auto 5% auto;
+}
+
+.footer-container {
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: space-evenly !important; 
+}
+
+footer .logo {
+  margin: 0;
+}
+
+.copyright {
+  align-self: center !important;
+  order: 2;
+}
+
+}
+
+@font-face {
+  font-family: 'holberton_school-icon';
+  src:  url('./holberton_school-icon/fonts/holberton_school-icon.eot?sq4eq4');
+  src:  url('./holberton_school-icon/fonts/holberton_school-icon.eot?sq4eq4#iefix') format('embedded-opentype'),
+    url('./holberton_school-icon/fonts/holberton_school-icon.ttf?sq4eq4') format('truetype'),
+    url('./holberton_school-icon/fonts/holberton_school-icon.woff?sq4eq4') format('woff'),
+    url('./holberton_school-icon/fonts/holberton_school-icon.svg?sq4eq4#holberton_school-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="holberton_school-icon-"], [class*=" holberton_school-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'holberton_school-icon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  color: white;
+  font-size: 94px;
+}
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+.holberton_school-icon-arrow_1:before {
+  content: "\e900";
+}
+.holberton_school-icon-arrow_2:before {
+  content: "\e901";
+}
+.holberton_school-icon-arrow_3:before {
+  content: "\e902";
+}
+.holberton_school-icon-arrow_4:before {
+  content: "\e903";
+}
+.holberton_school-icon-arrow_5:before {
+  content: "\e904";
+}
+.holberton_school-icon-check:before {
+  content: "\e905";
+}
+.holberton_school-icon-ic_bag:before {
+  content: "\e906";
+}
+.holberton_school-icon-ic_cart:before {
+  content: "\e907";
+}
+.holberton_school-icon-ic_facebook:before {
+  content: "\e908";
+}
+.holberton_school-icon-ic_hearing:before {
+  content: "\e909";
+}
+.holberton_school-icon-ic_instagram:before {
+  content: "\e90a";
+}
+.holberton_school-icon-ic_laptop:before {
+  content: "\e90b";
+}
+.holberton_school-icon-ic_money:before {
+  content: "\e90c";
+}
+.holberton_school-icon-ic_music:before {
+  content: "\e90d";
+}
+.holberton_school-icon-ic_sound:before {
+  content: "\e90e";
+}
+.holberton_school-icon-ic_twitter:before {
+  content: "\e90f";
+}
+.holberton_school-icon-ic_video:before {
+  content: "\e910";
+}
+.holberton_school-icon-menu:before {
+  content: "\e911";
+}
+.holberton_school-icon-search_1:before {
+  content: "\e912";
+}
+.holberton_school-icon-search_2:before {
+  content: "\e913";
+}
+.holberton_school-icon-star:before {
+  content: "\e914";
+}
+
+.card {
+/* Used to position the overlay */
+position: relative;
+}
+
+.playbtn {
+/* Position */
+position: absolute;
+top: 0;
+
+/* Take full size */
+height: 40%;
+width: 100%;
+
+/* Center the content */
+align-items: center;
+display: flex;
+justify-content: center;
+}
+
+.social-icons [class^="holberton_school-icon-"], [class*=" holberton_school-icon-"] {
+/* use !important to prevent issues with browser extensions that change fonts */
+font-family: 'holberton_school-icon' !important;
+font-style: normal;
+font-weight: normal;
+font-variant: normal;
+text-transform: none;
+line-height: 1;
+color: #FFFFFF;
+font-size: 30px;
+}
+
+.checks [class^="holberton_school-icon-"], [class*=" holberton_school-icon-"] {
+/* use !important to prevent issues with browser extensions that change fonts */
+font-family: 'holberton_school-icon' !important;
+font-style: normal;
+font-weight: normal;
+font-variant: normal;
+text-transform: none;
+line-height: 1;
+color: #82d24f;
+font-size: 30px;
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #C271FF;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Popular */
+.popular-video-container .carousel-inner .carousel-item.active,
+.popular-video-container .carousel-inner .carousel-item-next,
+.popular-video-container .carousel-inner .carousel-item-prev {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+.popular-video-container .carousel-inner .carousel-item > div {
+    display: none;
+}
+.popular-video-container .carousel-inner .carousel-item > div:first-child {
+    display: block;
+}
+}
+
+/* display 4 */
+@media (min-width: 768px) {
+  
+  .popular-video-container .carousel-inner .carousel-item-right.active,
+  .popular-video-container .carousel-inner .carousel-item-next {
+    transform: translateX(33.333%);
+  }
+  
+  .popular-video-container .carousel-inner .carousel-item-left.active, 
+  .popular-video-container .carousel-inner .carousel-item-prev {
+    transform: translateX(-33.333%);
+  }
+}
+
+.popular-video-container .carousel-inner .carousel-item-right,
+.popular-video-container .carousel-inner .carousel-item-left{ 
+transform: translateX(0);
+}
+
+/* Latest */
+.latest-video-container .carousel-inner .carousel-item.active,
+.latest-video-container .carousel-inner .carousel-item-next,
+.latest-video-container .carousel-inner .carousel-item-prev {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+.latest-video-container .carousel-inner .carousel-item > div {
+    display: none;
+}
+.latest-video-container .carousel-inner .carousel-item > div:first-child {
+    display: block;
+}
+}
+
+/* display 4 */
+@media (min-width: 768px) {
+  
+  .latest-video-container .carousel-inner .carousel-item-right.active,
+  .latest-video-container .carousel-inner .carousel-item-next {
+    transform: translateX(33.333%);
+  }
+  
+  .latest-video-container .carousel-inner .carousel-item-left.active, 
+  .latest-video-container .carousel-inner .carousel-item-prev {
+    transform: translateX(-33.333%);
+  }
+}
+
+.latest-video-container .carousel-inner .carousel-item-right,
+.latest-video-container .carousel-inner .carousel-item-left{ 
+transform: translateX(0);
+}
+
+[type=button]:hover {
+opacity: 50%;
+}
