@@ -1,342 +1,255 @@
-// QUOTE SECTION
-function createQuoteSlide(quote) {
-	const { pic_url, name, title, text } = quote;
-
-	const slide = $('<div>').addClass('carousel-item');
-	const row = $('<div>').addClass('row mx-auto align-items-center').appendTo(slide);
-	const imgCol = $('<div>').addClass('col-12 col-sm-2 col-lg-2 offset-lg-1 d-flex justify-content-center').appendTo(row);
-	const img = $('<img>').attr({
-		'src': pic_url,
-		'alt': 'Carousel Pic'
-	}).addClass('d-block align-self-center').appendTo(imgCol);
-	const textCol = $('<div>').addClass('col-12 col-sm-7 offset-sm-2 col-lg-9 offset-lg-0').appendTo(row);
-	const quoteText = $('<div>').addClass('quote-text').appendTo(textCol);
-	const p = $('<p>').addClass('text-white').text(text).appendTo(quoteText);
-	const h4 = $('<h4>').addClass('text-white font-weight-bold').text(name).appendTo(quoteText);
-	const span = $('<span>').addClass('text-white').text(title).appendTo(quoteText);
-
-	return slide;
-}
-
-$(function () {
-	let loader = $('.loader');
-	loader.show();
-
-	$.get("https://smileschool-api.hbtn.info/quotes", function (data) {
-		loader.hide();
-		$('#carouselExampleControls .carousel-inner').empty();
-
-		data.forEach((quote, index) => {
-			let slide = createQuoteSlide(quote);
-			if (index === 0) {
-				slide.addClass('active');
+$(document).ready(function () {
+	dynQuot();
+	createCard();
+	createCardTwo();
+	dynVid();
+  });
+  
+  const caps = (str) => {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  
+  const dynQuot = () => {
+	$.ajax({
+	  method: "GET",
+	  url: "https://smileschool-api.hbtn.info/quotes",
+	  dataType: "json",
+	  beforeSend: function() {
+		  $(".loader").show();
+	  },
+	  success: function(data) {
+	  if ($("#quotes").children().length == 1) {
+		  for (element in data) {
+			  $("#quotes").append(`
+			  <div class="carousel-item active">
+				  <div class="d-block d-flex" id="carol" style="height: 11rem;">
+					  <img src="${data[element].pic_url}" id="pic_url" class="rounded-circle mr-3" alt="">
+					  <div>
+						  <p class="text-white" id="text" style="font-family: let(--font-ssp-reg);">${data[element].text}</p>
+						  <p class="text-white" id="name" style="font-family: let(--font-ssp-bold);">${data[element].name}</p>
+						  <span class="font-italic text-white" id="title" style="font-family: let(--font-ssp-reg);">${data[element].title}</span>
+					  </div>
+				  </div>
+			  </div>`);
+			  }
+			  if ($('#quotes .carousel-item.active').eq(1)) {
+				  $('#quotes .carousel-item').eq(1).removeClass("active");
+			  }
+		  }
+	  },
+	  complete: function() {
+		  $(".loader").hide();
+	  }
+  })
+  }
+  
+  const createCard = () => {
+	$.ajax({
+		method: "GET",
+		url: "https://smileschool-api.hbtn.info/popular-tutorials",
+		dataType: "json",
+		beforeSend: function() {
+			$(".loader").show();
+		},
+		success: function(data) {
+			for (element in data) {
+				$(`#popular`).append(`
+			<div class="carousel-item" id="card">
+				<div class="card col-md-3 border-0 p-0 m-1" id="${element}">
+					<video src="" poster="${data[element].thumb_url}"></video>
+					<div class="playbtn">
+						<a href="" class="img-fluid w-25"><img class="img-fluid" src="./images-2/play.png" alt=""></a>
+					</div>
+	<div class="card-body">
+		<h5 class="card-title" style="font-family: let(--font-ssp-bold);">${data[element].title}</h5>
+		<p class="card-text">${data[element]["sub-title"]}</p>
+		<div class="d-flex mt-3 align-items-center">
+			<img src="${data[element].author_pic_url}" class="rounded-circle img-fluid w-25" alt="">
+			<p class="ml-2 mb-0 small" style="font-family: let(--font-ssp-semibold); color: #C271FF;">${data[element].author}</p>
+		</div>
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<div class="d-flex w-25">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_off.png" class="img-fluid w-25" alt="">
+			</div>
+			<p class="m-0" style="font-family: let(--font-ssp-semibold); color: #C271FF;">${data[element].duration}</p>
+		</div>
+	</div>
+	</div>
+	</div>`)};
+	$('.popular-video-container .carousel-item:first').addClass('active');
+	$('.popular-video-container .carousel .carousel-item').each(function(){
+		var minPerSlide = 4;
+		var next = $(this).next();
+		if (!next.length) {
+		next = $(this).siblings(':first');
+		}
+		next.children(':first-child').clone().appendTo($(this));
+		
+		for (var i = 0 ; i < minPerSlide ; i++) {
+			next = next.next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			  }
+			
+			next.children(':first-child').clone().appendTo($(this));
+		  }
+		});    
+	},
+	complete: function() {
+		$(".loader").hide();
+	}
+  })
+  }
+  
+  const createCardTwo = () => {
+	$.ajax({
+		method: "GET",
+		url: "https://smileschool-api.hbtn.info/latest-videos",
+		dataType: "json",
+		beforeSend: function() {
+			$(".loader").show();
+		},
+		success: function(data) {
+			for (element in data) {
+				$(`#latest`).append(`
+			<div class="carousel-item" id="card">
+				<div class="card col-md-3 border-0 p-0 m-1" id="${element}">
+					<video src="" poster="${data[element].thumb_url}"></video>
+					<div class="playbtn">
+						<a href="" class="img-fluid w-25"><img class="img-fluid" src="./images-2/play.png" alt=""></a>
+					</div>
+	<div class="card-body">
+		<h5 class="card-title" style="font-family: let(--font-ssp-bold);">${data[element].title}</h5>
+		<p class="card-text">${data[element]["sub-title"]}">
+			<img src="${data[element].author_pic_url}" class="rounded-circle img-fluid w-25" alt="">
+			<p class="ml-2 mb-0 small" style="font-family: let(--font-ssp-semibold); color: #C271FF;">${data[element].author}</p>
+		</div>
+		<div class="d-flex justify-content-between align-items-center mt-3">
+			<div class="d-flex w-25">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+				<img src="./images-2/star_off.png" class="img-fluid w-25" alt="">
+			</div>
+			<p class="m-0" style="font-family: let(--font-ssp-semibold); color: #C271FF;">${data[element].duration}</p>
+		</div>
+	</div>
+	</div>
+	</div>`)};
+	$('.latest-video-container .carousel-item:first').addClass('active');
+	$('.latest-video-container .carousel .carousel-item').each(function(){
+		var minPerSlide = 4;
+		var next = $(this).next();
+		if (!next.length) {
+		next = $(this).siblings(':first');
+		}
+		next.children(':first-child').clone().appendTo($(this));
+		
+		for (var i = 0; i < minPerSlide ; i++) {
+			next = next.next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			  }
+			
+			next.children(':first-child').clone().appendTo($(this));
+		  }
+		});    
+	},
+	complete: function() {
+		$(".loader").hide();
+	}
+  })
+  }
+  
+  const dynVid = () => {
+	$.ajax({
+		method: "GET",
+		url: "https://smileschool-api.hbtn.info/courses",
+		data: {
+			q: $("#searchfield").val(),
+			topic: $("#drops").val(),
+			sort: $("#drops2").val()
+		},
+		dataType: "json",
+		beforeSend: function() {
+			$(".loader").show();
+		},
+		success: function(data) {
+		for (i of data.topics) {
+			$('#drops').append(` <button class="dropdown-item" onclick="useSearch()" type="button">${capitalizeFirstLetter(i)}</button>`)
+		}
+		for (i of data.sorts) {
+			$('#drops2').append(` <button class="dropdown-item" onclick="useSearch()" type="button">${capitalizeFirstLetter(i.replaceAll('_', ' '))}</button>`)
+		}
+		$('#drops .dropdown-item').click(function() {
+			let text = $(this).text();
+			$('#place').html(capitalizeFirstLetter(text));
+		})
+		$('#drops2 .dropdown-item').click(function() {
+			let text = $(this).text();
+			$('#sort').html(capitalizeFirstLetter(text));
+		})
+		},
+		complete: function() {
+			$(".loader").hide();
+		}
+	  })
+  }
+  
+  const useSearch = () => {
+	$.ajax({
+		method: "GET",
+		url: "https://smileschool-api.hbtn.info/courses",
+		data: {
+			q: $('[type=search]').val(),
+			topic: $('#place').text(),
+			sort: $("#sort").text()
+		},
+		dataType: "json",
+		beforeSend: function() {
+			$(".loader").show();
+		},
+		success: function(data) {
+		$("#videos").empty();
+		let key = capitalizeFirstLetter(data.q);
+		let topic = capitalizeFirstLetter(data.topic);
+		for (element of data.courses) {
+			if (topic == element.topic && $.inArray(key, element.keywords != -1)) {
+					$("#videos").append(`
+					<div class="card border-0 p-1">
+					<video src="" poster="${element.thumb_url}"></video>
+					<div class="playbtn">
+						<a href="" class="img-fluid w-25"><img class="img-fluid" src="./images-2/play.png" alt=""></a>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title" style="font-family: var(--font-ssp-bold);">${element.title}</h5>
+						<p class="card-text">${element["sub-title"]}</p>
+						<div class="d-flex mt-3 align-items-center">
+							<img src="${element.author_pic_url}" class="rounded-circle img-fluid w-25" alt="">
+							<p class="ml-2 mb-0 small" style="font-family: var(--font-ssp-semibold); color: #C271FF;">${element.author}</p>
+						</div>
+						<div class="d-flex align-items-center mt-3">
+							<div class="d-flex w-25">
+								<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+								<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+								<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+								<img src="./images-2/star_on.png" class="img-fluid w-25" alt="">
+								<img src="./images-2/star_off.png" class="img-fluid w-25" alt="">
+							</div>
+							<p class="m-0" style="font-family: var(--font-ssp-semibold); color: #C271FF;">${element.duration}</p>
+						</div>
+					</div>
+				</div>`);
 			}
-			$('#carouselExampleControls .carousel-inner').append(slide);
-		});
-	});
-});
-
-
-
-// POPULAR VIDEO SECTION
-function createCardPopular(video) {
-	const { thumb_url, title, 'sub-title': sub_title, author_pic_url, author, duration, star } = video;
-
-	let stars = '';
-	for (let i = 1; i <= 5; i++) {
-		if (i <= star) {
-			stars += '<img src="images/star_on.png" alt="star on" width="15px" height="15px">';
-		} else {
-			stars += '<img src="images/star_off.png" alt="star off" width="15px" height="15px">';
 		}
-	}
-
-	const cardContainer = $('<div>').addClass('col-12 col-sm-6 col-md-4 card-deck');
-	const card = $('<div>').addClass('card border-0 d-flex flex-column').appendTo(cardContainer);
-
-	const thumbnailContainer = $('<div>').addClass('thumbnail-container position-relative').appendTo(card);
-	$('<img>').attr({ 'src': thumb_url, 'alt': 'Video thumbnail' }).addClass('card-img-top').appendTo(thumbnailContainer);
-
-	const overlay = $('<div>').addClass('card-img-overlay text-center').appendTo(thumbnailContainer);
-	$('<img>').attr({ 'src': 'images/play.png', 'alt': 'Play Button', 'width': '64px' }).addClass('align-self-center play-overlay').appendTo(overlay);
-
-	const cardBody = $('<div>').addClass('card-body px-2').appendTo(card);
-	$('<h5>').addClass('card-title font-weight-bold').text(title).appendTo(cardBody);
-
-	$('<p>').addClass('card-text text-muted').text(sub_title).appendTo(cardBody);
-
-	const creator = $('<div>').addClass('creator d-flex align-items-center').appendTo(cardBody);
-	$('<img>').attr({ 'src': author_pic_url, 'alt': 'Author' }).css('width', '30px').addClass('rounded-circle').appendTo(creator);
-	$('<h6>').addClass('pl-3 m-0 main-color').text(author).appendTo(creator);
-
-	const info = $('<div>').addClass('info pt-3 d-flex justify-content-between').appendTo(cardBody);
-	const rating = $('<div>').addClass('rating d-flex').appendTo(info);
-	rating.append(stars);
-	$('<span>').addClass('main-color').text(duration).appendTo(info);
-
-	return cardContainer;
-}
-
-$(function () {
-	const loader = $('.loader-popular');
-	loader.show();
-
-	$.get("https://smileschool-api.hbtn.info/popular-tutorials", function (data) {
-		loader.hide();
-		$('.carousel-popular').empty();
-
-		data.forEach((video) => {
-			let card = createCardPopular(video);
-			$('.carousel-popular').append(card);
-		});
-
-		$('.carousel-popular').slick({
-			slidesToShow: 4,
-			slidesToScroll: 1,
-			prevArrow: $('.slick-prev-popular'),
-			nextArrow: $('.slick-next-popular'),
-			responsive: [
-				{
-					breakpoint: 1920,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 1,
-					}
-				},
-				{
-					breakpoint: 1200,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 1,
-					}
-				},
-				{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1
-					}
-				},
-				{
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1
-					}
-				}
-			],
-		});
-	});
-});
-
-// LATEST VIDEOS SECTION
-function createCardLatest(video) {
-	const { thumb_url, title, 'sub-title': sub_title, author_pic_url, author, duration, star } = video;
-
-	let stars = '';
-	for (let i = 1; i <= 5; i++) {
-		if (i <= star) {
-			stars += '<img src="images/star_on.png" alt="star on" width="15px" height="15px">';
-		} else {
-			stars += '<img src="images/star_off.png" alt="star off" width="15px" height="15px">';
+		},
+		complete: function() {
+			$(".loader").hide();
 		}
-	}
-
-	const cardContainer = $('<div>').addClass('col-12 col-sm-6 col-md-4 card-deck');
-	const card = $('<div>').addClass('card border-0 d-flex flex-column').appendTo(cardContainer);
-
-	const thumbnailContainer = $('<div>').addClass('thumbnail-container position-relative').appendTo(card);
-	$('<img>').attr({ 'src': thumb_url, 'alt': 'Video thumbnail' }).addClass('card-img-top').appendTo(thumbnailContainer);
-
-	const overlay = $('<div>').addClass('card-img-overlay text-center').appendTo(thumbnailContainer);
-	$('<img>').attr({ 'src': 'images/play.png', 'alt': 'Play Button', 'width': '64px' }).addClass('align-self-center play-overlay').appendTo(overlay);
-
-	const cardBody = $('<div>').addClass('card-body px-2').appendTo(card);
-	$('<h5>').addClass('card-title font-weight-bold').text(title).appendTo(cardBody);
-
-	$('<p>').addClass('card-text text-muted').text(sub_title).appendTo(cardBody);
-
-	const creator = $('<div>').addClass('creator d-flex align-items-center').appendTo(cardBody);
-	$('<img>').attr({ 'src': author_pic_url, 'alt': 'Author' }).css('width', '30px').addClass('rounded-circle').appendTo(creator);
-	$('<h6>').addClass('pl-3 m-0 main-color').text(author).appendTo(creator);
-
-	const info = $('<div>').addClass('info pt-3 d-flex justify-content-between').appendTo(cardBody);
-	const rating = $('<div>').addClass('rating d-flex').appendTo(info);
-	rating.append(stars);
-	$('<span>').addClass('main-color').text(duration).appendTo(info);
-
-	return cardContainer;
-}
-
-$(function () {
-	const loader = $('.loader-latest');
-	loader.show();
-
-	$.get("https://smileschool-api.hbtn.info/latest-videos", function (data) {
-		loader.hide();
-		$('.carousel-latest').empty();
-
-		data.forEach((video) => {
-			let card = createCardLatest(video);
-			$('.carousel-latest').append(card);
-		});
-
-		$('.carousel-latest').slick({
-			slidesToShow: 4,
-			slidesToScroll: 1,
-			prevArrow: $('.slick-prev-latest'),
-			nextArrow: $('.slick-next-latest'),
-			responsive: [
-				{
-					breakpoint: 1920,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 1,
-					}
-				},
-				{
-					breakpoint: 1200,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 1,
-					}
-				},
-				{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1
-					}
-				},
-				{
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1
-					}
-				}
-			],
-		});
-	});
-});
-
-// COURSES SEARCH/RESULTS SECTIONS
-function createCardCourse(course) {
-	const { thumb_url, title, 'sub-title': sub_title, author_pic_url, author, duration, star } = course;
-
-	let stars = '';
-	for (let i = 1; i <= 5; i++) {
-		if (i <= star) {
-			stars += '<img src="images/star_on.png" alt="star on" width="15px" height="15px">';
-		} else {
-			stars += '<img src="images/star_off.png" alt="star off" width="15px" height="15px">';
-		}
-	}
-
-	const cardContainer = $('<div>').addClass('col-12 col-sm-6 col-md-3 card-deck');
-	const card = $('<div>').addClass('card border-0 d-flex flex-column').appendTo(cardContainer);
-
-	const thumbnailContainer = $('<div>').addClass('thumbnail-container position-relative').appendTo(card);
-	$('<img>').attr({ 'src': thumb_url, 'alt': 'Video thumbnail' }).addClass('card-img-top').appendTo(thumbnailContainer);
-
-	const overlay = $('<div>').addClass('card-img-overlay text-center').appendTo(thumbnailContainer);
-	$('<img>').attr({ 'src': 'images/play.png', 'alt': 'Play Button', 'width': '64px' }).addClass('align-self-center play-overlay').appendTo(overlay);
-
-	const cardBody = $('<div>').addClass('card-body px-2').appendTo(card);
-	$('<h5>').addClass('card-title font-weight-bold').text(title).appendTo(cardBody);
-
-	$('<p>').addClass('card-text text-muted').text(sub_title).appendTo(cardBody);
-
-	const creator = $('<div>').addClass('creator d-flex align-items-center').appendTo(cardBody);
-	$('<img>').attr({ 'src': author_pic_url, 'alt': 'Author' }).css('width', '30px').addClass('rounded-circle').appendTo(creator);
-	$('<h6>').addClass('pl-3 m-0 main-color').text(author).appendTo(creator);
-
-	const info = $('<div>').addClass('info pt-3 d-flex justify-content-between').appendTo(cardBody);
-	const rating = $('<div>').addClass('rating d-flex').appendTo(info);
-	rating.append(stars);
-	$('<span>').addClass('main-color').text(duration).appendTo(info);
-
-	return cardContainer;
-}
-
-function updateSelections(data) {
-	// Set the first topic and sort option as selected
-	if (data.topics.length > 0) {
-		let topic = data.topics[0].replace(/_/g, ' ');
-		$('.box2 .btn span').text(topic);
-	}
-
-	if (data.sorts.length > 0) {
-		let sort = data.sorts[0].replace(/_/g, ' ');
-		$('.box3 .btn span').text(sort);
-	}
-}
-
-function populateCourses(coursesSelector, url, query = '', topic = 'all', sort = 'most_popular') {
-	const loader = $('.loader');
-	loader.show();
-
-	$.get(url, { q: query, topic: topic, sort: sort }, function (data) {
-		loader.hide();
-		$(coursesSelector).empty();
-
-		console.log(`Data fetched for ${coursesSelector}: `, data);
-
-		// Set the search value
-		$('#keywords').val(data.q);
-
-		// Update the topics, sorts dropdowns, and removes underscores
-
-		$('.box2 .dropdown-menu').html('');
-		data.topics.forEach(topic => {
-			topic = topic.replace(/_/g, ' ');
-			$('.box2 .dropdown-menu').append(`<a class="dropdown-item" href="#">${topic}</a>`);
-		});
-
-
-		$('.box3 .dropdown-menu').html('');
-		data.sorts.forEach(sort => {
-			sort = sort.replace(/_/g, ' ');
-			$('.box3 .dropdown-menu').append(`<a class="dropdown-item" href="#">${sort}</a>`);
-		});
-
-
-
-		// Update the selected options
-		updateSelections(data);
-
-		$('#section-title').html(`<span class="text-muted video-count">${data.courses.length} videos</span>`);
-
-		data.courses.forEach((course, index) => {
-			const card = createCardCourse(course);
-			$(coursesSelector).append(card);
-		});
-
-		// Reload courses when a new Topic is selected
-		$('.box2 .dropdown-item').on('click', function (e) {
-			e.preventDefault();
-			$('.box2 .btn span').text($(this).text());
-			populateCourses('#courses-list', coursesApiUrl, $('.search-text-area').val(), $(this).text(), $('.box3 .btn span').text());
-		});
-
-		// Reload courses when a new Sort by is selected
-		$('.box3 .dropdown-item').on('click', function (e) {
-			e.preventDefault();
-			$('.box3 .btn span').text($(this).text());
-			populateCourses('#courses-list', coursesApiUrl, $('.search-text-area').val(), $('.box2 .btn span').text(), $(this).text());
-		});
-	});
-}
-
-$(function () {
-	console.log("Document is ready");
-
-	const coursesApiUrl = "https://smileschool-api.hbtn.info/courses";
-
-	populateCourses('#courses-list', coursesApiUrl);
-
-	// Reload courses when search value changes
-	$('.search-text-area').on('change', function () {
-		populateCourses('#courses-list', coursesApiUrl, $(this).val(), $('.box2 .btn span').text(), $('.box3 .btn span').text());
-	});
-});
+	})
+  }
